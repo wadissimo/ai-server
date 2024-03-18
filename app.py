@@ -4,10 +4,12 @@ import traceback
 from palm2_model import Palm2Model
 from gpt_model import GptModel
 from gemini_model import GeminiModel
+from mistral_model import MistralModel
 
 app = Flask(__name__)
 app.secret_key="klf§5n2314v55a§sfd3as1$s23fdas$$1%2113231!!"
 DEFAULT_MODEL = "gemini"
+
 
 def choose_model(model, api_key=""):
     if len(model) == 0:
@@ -18,6 +20,8 @@ def choose_model(model, api_key=""):
         return Palm2Model()
     elif "gemini" in model:
         return GeminiModel()
+    elif "mistral" in model:
+        return MistralModel(model_name=model)
 
 @app.route("/send_message", methods=['POST'])
 def send_message():
